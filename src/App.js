@@ -16,6 +16,12 @@ export default function Board() {
     const newSquares = squares.slice();
     newSquares[i] = "X";
     setSquares(newSquares);
+    newSquares[i] = cell;
+    if (cell == "X") {
+      setCell("O");
+    } else {
+      setCell("X");
+    }
   }
 
   return (
