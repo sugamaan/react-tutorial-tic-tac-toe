@@ -1,37 +1,28 @@
 import { useState } from "react";
 
-function Square({ props }) {
-  const [value, setValue] = useState(null);
-
-  function handleClick() {
-    console.log(`props: ${props}`);
-    setValue(props);
-  }
-
+function Square({ value, onSquareClick }) {
   return (
-    <button className="square" onClick={handleClick}>
+    <button className="square" onClick={onSquareClick}>
       {value}
     </button>
   );
 }
 
 export default function Board() {
-  const [value, setValue] = useState("X");
+  const [squares, setSquares] = useState(Array(9).fill(null));
+  const [cell, setCell] = useState();
 
-  function handleValue() {
-    console.log(`value: ${value}`);
-    if (value == "X") {
-      setValue("O");
-    } else {
-      setValue("X");
-    }
+  function handleClick(i) {
+    const newSquares = squares.slice();
+    newSquares[i] = "X";
+    setSquares(newSquares);
   }
 
   return (
     <>
-      <Square props={value} onClick={handleValue} />
-      <Square props={value} onClick={handleValue} />
-      <Square props={value} onClick={handleValue} />
+      <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
+      <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
+      <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
     </>
   );
 }
